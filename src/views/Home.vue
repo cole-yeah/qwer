@@ -1,18 +1,36 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div class="item" @click="pushPage('/about')">About</div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
   name: "Home",
-  components: {
-    HelloWorld
+  methods: {
+    pushPage(path) {
+      this.$router.push({ path });
+    }
   }
 };
 </script>
+
+<style lang="less" scoped>
+.home {
+  background-color: #f8f8f8;
+  padding: 10px;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+.item {
+  padding: 10px 15px;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+</style>
