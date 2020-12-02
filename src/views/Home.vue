@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <div class="item" @click="pushPage('/about')">About</div>
+    <div class="item" @click="pushPage('/about')">Counter</div>
+    <div class="item" @click="pushPage('/canvas')">Canvas</div>
   </div>
 </template>
 
