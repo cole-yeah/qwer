@@ -21,6 +21,11 @@ const routes = [
     path: "/canvas/imageNode",
     name: "ImageNode",
     component: () => import("@/views/canvas/imageNode")
+  },
+  {
+    path: "/canvas/triangle",
+    name: "Triangle",
+    component: () => import("@/views/canvas/triangle")
   }
 ];
 

@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="item" @click="pushPage('/canvas/imageNode')">canvas image node</div>
+    <div class="item" @click="pushPage('/canvas/triangle')">canvas triangle</div>
   </div>
 </template>
 <script>
@@ -25,5 +26,6 @@ export default {
   font-weight: 600;
   border-radius: 8px;
   background-color: #fff;
+  margin-bottom: 10px;
 }
 </style>
