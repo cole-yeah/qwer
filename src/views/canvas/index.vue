@@ -1,12 +1,27 @@
 <template>
   <div class="wrapper">
-    <div class="item" @click="pushPage('/canvas/imageNode')">canvas image node</div>
-    <div class="item" @click="pushPage('/canvas/triangle')">canvas triangle</div>
+    <!-- <div class="item" @click="pushPage('/canvas/imageNode')">
+      canvas image node
+    </div> -->
+    <div
+      class="item"
+      v-for="(route, i) in canvasRoutes"
+      :key="i"
+      @click="pushPage(route.path)"
+    >
+      {{ route.name }}
+    </div>
   </div>
 </template>
 <script>
+import canvasRoutes from "@/router/canvas";
 export default {
   name: "Canvas",
+  data() {
+    return {
+      canvasRoutes
+    };
+  },
   methods: {
     pushPage(path) {
       this.$router.push({ path });

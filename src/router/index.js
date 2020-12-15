@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+import canvasRoutes from "./canvas";
 
 const routes = [
   {
@@ -12,21 +13,7 @@ const routes = [
     name: "About",
     component: () => import("@/views/About.vue")
   },
-  {
-    path: "/canvas",
-    name: "Canvas",
-    component: () => import("@/views/canvas")
-  },
-  {
-    path: "/canvas/imageNode",
-    name: "ImageNode",
-    component: () => import("@/views/canvas/imageNode")
-  },
-  {
-    path: "/canvas/triangle",
-    name: "Triangle",
-    component: () => import("@/views/canvas/triangle")
-  }
+  ...canvasRoutes
 ];
 
 const router = createRouter({
