@@ -50,7 +50,7 @@ export default {
     initStar() {
       this.starsCanvas = document.getElementById("stars");
       this.starsCanvas.width = this.width;
-      this.starsCanvas.height = this.height / 3;
+      this.starsCanvas.height = this.height;
       this.starsCtx = this.starsCanvas.getContext("2d");
       //星星数量
       const starsNumber = 60;
@@ -58,17 +58,25 @@ export default {
       this.starsList = Array.from({ length: starsNumber }, () => {
         const star = new Star({
           x: random() * this.starsCanvas.width,
-          y: random() * this.starsCanvas.height,
+          y: random() * (this.starsCanvas.height / 3),
           ctx: this.starsCtx,
           r: random(),
           width: this.starsCanvas.width,
+          height: this.starsCanvas.height
         });
         star.draw();
         return star;
       });
     },
     animate() {
-      this.starsCtx.clearRect(
+      // this.starsCtx.clearRect(
+      //   0,
+      //   0,
+      //   this.starsCanvas.width,
+      //   this.starsCanvas.height
+      // );
+      this.starsCtx.fillStyle = "rgba(0, 0, 0, 0.2)";
+      this.starsCtx.fillRect(
         0,
         0,
         this.starsCanvas.width,

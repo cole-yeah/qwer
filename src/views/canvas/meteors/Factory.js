@@ -25,9 +25,11 @@ export class Moon {
 }
 
 export class Star extends Moon {
-  constructor({ x, y, r, ctx, width }) {
+  constructor({ x, y, r, ctx, width, height }) {
     super({ x, y, r, ctx });
     this.width = width;
+    this.height = height;
+    this.isShining = Math.random() > 0.9;
   }
   draw() {
     this.ctx.beginPath();
@@ -37,9 +39,25 @@ export class Star extends Moon {
     this.ctx.fill();
   }
   move() {
-    this.x += 0.08;
+    this.x += 0.04;
+    if (this.isShining) {
+      this.x += 1;
+      this.y += 2;
+    }
     if (this.x >= this.width) {
+      this.isShining = false;
       this.x = 0;
+      this.y = Math.random() * (this.height / 3);
+      setTimeout(
+        () => (this.isShining = Math.random() > 0.9),
+        20000 * Math.random()
+      );
+    }
+    if (this.y >= this.height / 2) {
+      this.isShining = false;
+      this.x = Math.random();
+      this.y = Math.random() * (this.height / 3);
+      setTimeout(() => (this.isShining = true), 10000 * Math.random());
     }
     this.draw();
   }
