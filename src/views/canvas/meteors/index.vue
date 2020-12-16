@@ -2,7 +2,6 @@
   <div class="meteorsBg">
     <canvas class="canvas" id="stars"></canvas>
     <canvas class="canvas" id="moon"></canvas>
-    <canvas class="canvas" id="meteors"></canvas>
   </div>
 </template>
 <script>
@@ -13,13 +12,12 @@ export default {
     return {
       starsCanvas: null,
       moonCanvas: null,
-      meteorsCanvas: null,
       starsCtx: null,
       moonCtx: null,
-      meteorsCtx: null,
       starsList: [],
       width: 0,
-      height: 0
+      height: 0,
+      timer: null
     };
   },
   mounted() {
@@ -33,6 +31,7 @@ export default {
       this.initStar();
       //动画
       this.animate();
+      this.resize();
     },
     initMoon() {
       this.moonCanvas = document.getElementById("moon");
@@ -69,12 +68,7 @@ export default {
       });
     },
     animate() {
-      // this.starsCtx.clearRect(
-      //   0,
-      //   0,
-      //   this.starsCanvas.width,
-      //   this.starsCanvas.height
-      // );
+      if (!this.starsList?.length) return;
       this.starsCtx.fillStyle = "rgba(0, 0, 0, 0.2)";
       this.starsCtx.fillRect(
         0,
@@ -84,6 +78,16 @@ export default {
       );
       this.starsList.forEach(star => star.move());
       requestAnimationFrame(this.animate);
+    },
+    resize() {
+      window.onresize = () => {
+        this.timer && clearTimeout(this.timer);
+
+        this.width = document.body.clientWidth;
+        this.height = document.body.clientHeight;
+        this.starsList = [];
+        this.timer = setTimeout(() => this.init(), 50);
+      };
     }
   }
 };
