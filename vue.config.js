@@ -1,24 +1,41 @@
-const PrerenderSPAPlugin = require("prerender-spa-plugin");
-const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
+// const PrerenderSPAPlugin = require("prerender-spa-plugin");
+// const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
+const VueSSRClientPlugin = require("vue-server-renderer/client-plugin");
+const VueSSRServerPlugin = require("vue-server-renderer/server-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const nodeExternals = require("webpack-node-externals");
 const path = require("path");
+
+const isNodeEnv = process.env.ENV_TYPE === "node";
+
+const htmlPluginConfig = isNodeEnv
+  ? {
+      template: path.resolve(__dirname, "../src/index.ssr.html"),
+      filename: "index.ssr.html",
+      files: {
+        js: "client.bundle.js"
+      },
+      excludeChunks: ["server"]
+    }
+  : {
+      template: path.resolve(__dirname, "../src/index.html"),
+      filename: "index.html"
+    };
 
 module.exports = {
   configureWebpack: config => {
-    if (process.env.NODE_ENV !== "production") return;
     return {
+      entry: isNodeEnv ? "./src/entry-server.js" : "./src/entry-client.js",
+      target: isNodeEnv ? "node" : "web",
+      devtool: "source-map",
+      node: isNodeEnv ? undefined : false,
+      output: {
+        libraryTarget: isNodeEnv ? "commonjs2" : undefined
+      },
+      externals: isNodeEnv ? [nodeExternals()] : undefined,
       plugins: [
-        new PrerenderSPAPlugin({
-          staticDir: path.join(__dirname, "dist"),
-          // 对应自己的路由文件，比如a有参数，就需要写成 /a/param1。
-          routes: ["/", "/canvas", "/about"],
-          renderer: new Renderer({
-            inject: {
-              foo: "bar"
-            },
-            headless: false,
-            renderAfterDocumentEvent: "render-event"
-          })
-        })
+        isNodeEnv ? new VueSSRServerPlugin() : new VueSSRClientPlugin(),
+        new HtmlWebpackPlugin(htmlPluginConfig)
       ]
     };
   }
