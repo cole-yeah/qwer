@@ -6,8 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dev:ssr": "cross-env ENV_TYPE=node node server/index.js",
-    "build:ssr": "cross-env ENV_TYPE=node vue-cli-service build"
+    "dev:ssr": "cross-env RENDER_ENV=server node server/index.js",
+    "build:ssr": "cross-env RENDER_ENV=server vue-cli-service build"
   },
   "dependencies": {
     "@vue/server-renderer": "^3.0.4",
@@ -42,6 +42,7 @@
     "prerender-spa-plugin": "^3.4.0",
     "prettier": "^1.19.1",
     "vue-bundle-renderer": "^0.2.2",
+    "webpack-manifest-plugin": "^3.0.0",
     "webpack-node-externals": "^2.5.2"
   }
 }

@@ -1,41 +1,44 @@
-// const PrerenderSPAPlugin = require("prerender-spa-plugin");
-// const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
-const VueSSRClientPlugin = require("vue-server-renderer/client-plugin");
-const VueSSRServerPlugin = require("vue-server-renderer/server-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ManifestPlugin = require("webpack-manifest-plugin");
 const nodeExternals = require("webpack-node-externals");
-const path = require("path");
-
-const isNodeEnv = process.env.ENV_TYPE === "node";
-
-const htmlPluginConfig = isNodeEnv
-  ? {
-      template: path.resolve(__dirname, "../src/index.ssr.html"),
-      filename: "index.ssr.html",
-      files: {
-        js: "client.bundle.js"
-      },
-      excludeChunks: ["server"]
-    }
-  : {
-      template: path.resolve(__dirname, "../src/index.html"),
-      filename: "index.html"
-    };
+const webpack = require("webpack");
+// const path = require("path");
 
 module.exports = {
   configureWebpack: config => {
+    const isSSR = process.env.RENDER_ENV === "server";
+
+    config.module.rule("vue").uses.delete("cache-loader");
+    config.module.rule("js").uses.delete("cache-loader");
+    config.module.rule("ts").uses.delete("cache-loader");
+    config.module.rule("tsx").uses.delete("cache-loader");
+
+    if (!isSSR) {
+      config.devServer.disableHostCheck(true);
+      return {
+        entry: "./src/entry-client.js"
+      };
+    }
+
+    //delete
+    config.plugins.delete("hmr");
+    config.plugins.delete("preload");
+    config.plugins.delete("prefetch");
+    config.plugins.delete("progress");
+    config.plugins.delete("friendly-errors");
+    config.optimization.splitChunks(false).minimize(false);
+
     return {
-      entry: isNodeEnv ? "./src/entry-server.js" : "./src/entry-client.js",
-      target: isNodeEnv ? "node" : "web",
-      devtool: "source-map",
-      node: isNodeEnv ? undefined : false,
+      target: "node",
+      entry: "./src/entry-server.js",
       output: {
-        libraryTarget: isNodeEnv ? "commonjs2" : undefined
+        libraryTarget: "commonjs2"
       },
-      externals: isNodeEnv ? [nodeExternals()] : undefined,
+      externals: [nodeExternals({ allowlist: /\.(css|vue)$/ })],
       plugins: [
-        isNodeEnv ? new VueSSRServerPlugin() : new VueSSRClientPlugin(),
-        new HtmlWebpackPlugin(htmlPluginConfig)
+        new ManifestPlugin({ filename: "ssr-manifest.json" }),
+        new webpack.optimize.LimitChunkCountPlugin({
+          maxChunks: 1
+        })
       ]
     };
   }

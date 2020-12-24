@@ -16,9 +16,11 @@ const routes = [
   ...canvasRoutes
 ];
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-});
+const _createRouter = () => {
+  createRouter({
+    history: createWebHistory(process.env.BASE_URL),
+    routes
+  });
+};
 
-export default router;
+export default _createRouter;
