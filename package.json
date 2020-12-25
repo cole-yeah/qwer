@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "rimraf dist && npm run build:csr && npm run build:ssr",
     "lint": "vue-cli-service lint",
-    "dev:ssr": "cross-env RENDER_ENV=server node server/index.js",
-    "build:ssr": "cross-env RENDER_ENV=server vue-cli-service build"
+    "ssr": "node server.js",
+    "dev:ssr": "cross-env RENDER_ENV=server node server.js",
+    "build:ssr": "cross-env RENDER_ENV=server vue-cli-service build --dest dist/server",
+    "build:csr": "vue-cli-service build --dest dist/client"
   },
   "dependencies": {
     "@vue/server-renderer": "^3.0.4",
@@ -19,7 +21,8 @@
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vue-server-renderer": "^2.6.12",
-    "vuex": "^4.0.0-0"
+    "vuex": "^4.0.0-0",
+    "webpack": "^4.44.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -36,13 +39,15 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^7.0.0-0",
+    "express": "^4.17.1",
     "html-webpack-plugin": "^4.5.0",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "prerender-spa-plugin": "^3.4.0",
     "prettier": "^1.19.1",
+    "serialize-javascript": "^5.0.1",
     "vue-bundle-renderer": "^0.2.2",
-    "webpack-manifest-plugin": "^3.0.0",
+    "webpack-manifest-plugin": "^2.2.0",
     "webpack-node-externals": "^2.5.2"
   }
 }

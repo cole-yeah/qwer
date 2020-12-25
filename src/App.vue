@@ -1,15 +1,24 @@
 <template>
-  <!-- <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div> -->
-  <router-view />
+  <div id="app">
+    <img alt="Vue logo" src="./assets/logo.png" />
+    <p>server side render</p>
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+  </div>
 </template>
+
 <script>
 export default {
-  name: "App",
-  mounted() {
-    document.dispatchEvent(new Event("render-event"));
-  }
+  name: "App"
 };
 </script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
