@@ -9,7 +9,7 @@
     "ssr": "node server.js",
     "dev:ssr": "cross-env RENDER_ENV=server node server.js",
     "build:ssr": "cross-env RENDER_ENV=server vue-cli-service build --dest dist/server",
-    "build:csr": "vue-cli-service build --dest dist/client"
+    "build:csr": "cross-env RENDER_ENV=client vue-cli-service build --dest dist/client"
   },
   "dependencies": {
     "@vue/server-renderer": "^3.0.4",

@@ -1,11 +1,16 @@
 const ManifestPlugin = require("webpack-manifest-plugin");
 const nodeExternals = require("webpack-node-externals");
+const webpack = require("webpack");
 
 exports.chainWebpack = webpackConfig => {
   const isSSR = process.env.RENDER_ENV === "server";
   if (!isSSR) {
     // This is required for repl.it to play nicely with the Dev Server
     webpackConfig.devServer.disableHostCheck(true);
+    webpackConfig
+      .entry("app")
+      .clear()
+      .add("./src/entry-client.js");
     return;
   }
 
@@ -31,5 +36,10 @@ exports.chainWebpack = webpackConfig => {
   webpackConfig.plugins.delete("progress");
   webpackConfig.plugins.delete("friendly-errors");
 
+  webpackConfig.plugin("limit").use(
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1
+    })
+  );
   // console.log(webpackConfig.toConfig())
 };

@@ -1,12 +1,11 @@
 import createApp from "./main";
 
-const { app, router, store } = createApp();
+const { app, router } = createApp({
+  store: {}
+});
 
-if (window.__INITIAL_STATE__) {
-  store.replaceState(window.__INITIAL_STATE__);
-}
+(async (r, a) => {
+  await r.isReady();
 
-(async (curRouter, curApp) => {
-  await curRouter.isReady();
-  curApp.mount("#app");
+  a.mount("#app", true);
 })(router, app);

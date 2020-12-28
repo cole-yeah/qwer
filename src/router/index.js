@@ -1,4 +1,8 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  createMemoryHistory
+} from "vue-router";
 import Home from "../views/Home.vue";
 import canvasRoutes from "./canvas";
 
@@ -16,9 +20,13 @@ const routes = [
   ...canvasRoutes
 ];
 
+const isServer = typeof window === "undefined";
+
+const createHistory = isServer ? createMemoryHistory : createWebHistory;
+
 const _createRouter = () => {
-  createRouter({
-    history: createWebHistory(process.env.BASE_URL),
+  return createRouter({
+    history: createHistory(),
     routes
   });
 };

@@ -1,14 +1,22 @@
 module.exports = {
-  presets: ["@vue/cli-plugin-babel/preset"],
-  plugins: [
+  presets: [
     [
-      "import",
+      "@vue/cli-plugin-babel/preset",
       {
-        libraryName: "vant",
-        libraryDirectory: "es",
-        style: true
-      },
-      "vant"
+        targets: { esmodules: true },
+        polyfills: []
+      }
     ]
-  ]
+  ],
+  // plugins: [
+  //   [
+  //     "import",
+  //     {
+  //       libraryName: "vant",
+  //       libraryDirectory: "es",
+  //       style: true
+  //     },
+  //     "vant"
+  //   ]
+  // ]
 };
