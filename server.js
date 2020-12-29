@@ -24,6 +24,23 @@ server.use(
   express.static(path.join(__dirname, "./dist/client", "favicon.ico"))
 );
 
+const renderState = (store, windowKey) => {
+  const state = serialize(store);
+  const autoRemove =
+    ";(function(){var s;(s=document.currentScript||document.scripts[document.scripts.length-1]).parentNode.removeChild(s);}());";
+  const nonceAttr = store.nonce ? ' nonce="' + store.nonce + '"' : "";
+  return store
+    ? "<script" +
+        nonceAttr +
+        ">window." +
+        windowKey +
+        "=" +
+        state +
+        autoRemove +
+        "</script>"
+    : "";
+};
+
 server.get("*", async (req, res) => {
   const { app, router, store } = await createApp();
   //路由处理
@@ -33,7 +50,10 @@ server.get("*", async (req, res) => {
   const appContent = await renderToString(app);
 
   const html = fs.readFileSync(path.join(__dirname, "/dist/client/index.html"));
-  const newContent = `<div id="app">${appContent}</div>`;
+  const newContent = `<div id="app">${renderState(
+    store.state,
+    "__INITIAL_STATE__"
+  )}${appContent}</div>`;
   const newHtml = html.toString().replace('<div id="app"></div>', newContent);
 
   res.setHeader("Content-Type", "text/html");

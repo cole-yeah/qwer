@@ -5,13 +5,20 @@
   </div>
 </template>
 <script>
-import { mapState, mapMutations } from "vuex";
-export default {
-  computed: mapState({
-    count: state => state.count
-  }),
-  methods: {
-    ...mapMutations(["increment"])
+import { computed, defineComponent } from "vue";
+import { useStore } from "@/store";
+export default defineComponent({
+  name: "About",
+  setup() {
+    const store = useStore();
+    const count = computed(() => store.state.count);
+    const increment = () => {
+      store.commit("increment");
+    };
+    return {
+      count,
+      increment
+    };
   }
-};
+});
 </script>
