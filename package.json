@@ -8,12 +8,14 @@
     "lint": "vue-cli-service lint",
     "ssr": "node server.js",
     "dev:ssr": "cross-env RENDER_ENV=server node server.js",
+    "start:ssr": "cross-env RENDER_ENV=server NODE_ENV=production node server.js",
     "build:ssr": "cross-env RENDER_ENV=server vue-cli-service build --dest dist/server",
     "build:csr": "cross-env RENDER_ENV=client vue-cli-service build --dest dist/client"
   },
   "dependencies": {
     "@vue/server-renderer": "^3.0.4",
     "core-js": "^3.6.5",
+    "express": "^4.17.1",
     "vant": "^3.0.0-beta.10",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
@@ -35,7 +37,6 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^7.0.0-0",
-    "express": "^4.17.1",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "prettier": "^1.19.1",
