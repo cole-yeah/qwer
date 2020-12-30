@@ -1,0 +1,7 @@
+# 在执行 COPY . . 命令时，忽略node_modules
+**/node_modules
+node_modules
+
+*.log
+.vscode
+.history
