@@ -3,15 +3,9 @@ import {
   createWebHistory,
   createMemoryHistory
 } from "vue-router";
-import Home from "../views/Home.vue";
 import canvasRoutes from "./canvas";
 
 const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home
-  },
   {
     path: "/about",
     name: "About",
