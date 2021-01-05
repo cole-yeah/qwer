@@ -10,7 +10,11 @@
     "dev:ssr": "cross-env RENDER_ENV=server node server.js",
     "start:ssr": "cross-env RENDER_ENV=server NODE_ENV=production node server.js",
     "build:ssr": "cross-env RENDER_ENV=server vue-cli-service build --dest dist/server",
-    "build:csr": "cross-env RENDER_ENV=client vue-cli-service build --dest dist/client"
+    "build:csr": "cross-env RENDER_ENV=client vue-cli-service build --dest dist/client",
+    "rebuild:docker": "npm run rm:docker && npm run build:docker",
+    "rm:docker": "docker stop qwer && docker rm qwer && docker rmi qwer:v1.0.0",
+    "build:docker": "docker build -t qwer:v1.0.0 .",
+    "dev:docker": "docker run -itd --name qwer -p 8089:8089 qwer:v1.0.0"
   },
   "dependencies": {
     "@vue/server-renderer": "^3.0.4",
