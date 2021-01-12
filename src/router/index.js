@@ -4,6 +4,7 @@ import {
   createMemoryHistory
 } from "vue-router";
 import canvasRoutes from "./canvas";
+import countDownRoutes from "./countDown";
 
 const routes = [
   {
@@ -11,7 +12,8 @@ const routes = [
     name: "About",
     component: () => import("@/views/About.vue")
   },
-  ...canvasRoutes
+  ...canvasRoutes,
+  ...countDownRoutes
 ];
 
 const isServer = typeof window === "undefined";
