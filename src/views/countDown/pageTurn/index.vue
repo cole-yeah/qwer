@@ -1,8 +1,7 @@
 <template>
   <div class="box">
-    <Card :time="getMinutes()" timeType="minutes" />
-    <Card :time="getSeconds()" timeType="seconds" />
-    <p class="motto">{{ mottoAry[mottoIndex] }}</p>
+    <Card :time="getMinutes()" :isPlaying="isPlaying" timeType="minutes" />
+    <Card :time="getSeconds()" :isPlaying="isPlaying" timeType="seconds" />
     <Footer
       :isPlaying="isPlaying"
       :pause="pauseCountDown"
@@ -26,16 +25,7 @@ export default {
     return {
       delay: TWENTY_FIVE * SIXTY_SECONDS,
       timer: null,
-      isPlaying: true,
-      mottoAry: [
-        "千里之行，始于足下",
-        "知行合一",
-        "接受失败，但不选择放弃",
-        "一年四季总要分明。我们又何必感叹",
-        "为成功找方法，不为失败找借口",
-        "坚持就是胜利"
-      ],
-      mottoIndex: Math.floor(Math.random() * ((this.mottoAry?.length || 0) + 1))
+      isPlaying: true
     };
   },
   mounted() {
@@ -59,9 +49,6 @@ export default {
     resetCountDown() {
       this.delay = TWENTY_FIVE * SIXTY_SECONDS;
       this.pauseCountDown();
-      this.mottoIndex = Math.floor(
-        Math.random() * ((this.mottoAry?.length || 0) + 1)
-      );
     },
     getMinutes() {
       return this.delay >= SIXTY_SECONDS
@@ -75,24 +62,18 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.box {
-  background-color: #000;
+.layout-mixin {
   width: 100%;
-  max-width: 750px;
-  height: 100vh;
   margin: 0 auto;
+  max-width: 750px;
+}
+.box {
+  .layout-mixin;
+  background-color: #000;
+  height: 100vh;
   padding: 30px;
   box-sizing: border-box;
   overflow: hidden;
-}
-.motto {
-  position: fixed;
-  width: 100%;
-  bottom: 100px;
-  color: #666;
-  font-size: 16px;
-  text-align: center;
-  left: 0;
-  font-family: fangsong;
+  position: relative;
 }
 </style>

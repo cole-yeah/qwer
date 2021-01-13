@@ -1,5 +1,6 @@
 <template>
   <div
+    id="card"
     :class="
       [
         'card',
@@ -40,6 +41,12 @@ export default {
       this.beginAni();
     }
   },
+  mounted() {
+    // const dom = document.getElementById("card");
+    // dom.addEventListener("webkitAnimationStart", (aaa) => {
+    //   console.log('================', aaa)
+    // });
+  },
   methods: {
     beginAni() {
       this.isBeforeActive = true;
@@ -70,6 +77,7 @@ export default {
   text-align: center;
   box-sizing: border-box;
   background-color: #121212;
+  letter-spacing: 4px;
 }
 .card {
   .card-mixin;
@@ -123,7 +131,7 @@ export default {
 }
 @keyframes afterActive {
   0% {
-    transform: rotateX(60deg);
+    transform: rotateX(80deg);
     background-color: #333;
   }
   100% {
