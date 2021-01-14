@@ -6,11 +6,11 @@ import {
 import canvasRoutes from "./canvas";
 import countDownRoutes from "./countDown";
 
-const routes = [
+export const routes = [
   {
-    path: "/about",
-    name: "About",
-    component: () => import("@/views/About.vue")
+    path: "/",
+    name: "Main",
+    component: () => import("@/views/main")
   },
   ...canvasRoutes,
   ...countDownRoutes

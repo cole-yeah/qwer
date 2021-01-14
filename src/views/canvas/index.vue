@@ -1,31 +1,20 @@
 <template>
   <div class="wrapper">
-    <!-- <div class="item" @click="pushPage('/canvas/imageNode')">
-      canvas image node
-    </div> -->
-    <div
-      class="item"
-      v-for="(route, i) in canvasRoutes"
-      :key="i"
-      @click="pushPage(route.path)"
-    >
-      {{ route.name }}
-    </div>
+    <RouterList :list="canvasRoutes" :floor="2" />
   </div>
 </template>
 <script>
 import canvasRoutes from "@/router/canvas";
+import RouterList from "@/components/RouterList";
 export default {
   name: "Canvas",
+  components: {
+    RouterList
+  },
   data() {
     return {
       canvasRoutes
     };
-  },
-  methods: {
-    pushPage(path) {
-      this.$router.push({ path });
-    }
   }
 };
 </script>
@@ -33,14 +22,5 @@ export default {
 .wrapper {
   padding: 10px;
   background-color: #f8f8f8;
-}
-.item {
-  padding: 10px;
-  font-size: 14px;
-  color: #333;
-  font-weight: 600;
-  border-radius: 8px;
-  background-color: #fff;
-  margin-bottom: 10px;
 }
 </style>

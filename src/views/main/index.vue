@@ -1,19 +1,19 @@
 <template>
   <div class="wrapper">
-    <RouterList :list="countDownRoutes" :floor="2" />
+    <RouterList :list="routes" :floor="1" />
   </div>
 </template>
 <script>
+import { routes } from "@/router";
 import RouterList from "@/components/RouterList";
-import countDownRoutes from "@/router/countDown";
 export default {
-  name: "CountDown",
+  name: "Main",
   components: {
     RouterList
   },
   data() {
     return {
-      countDownRoutes
+      routes
     };
   }
 };
