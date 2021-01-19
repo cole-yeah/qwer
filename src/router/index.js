@@ -5,6 +5,7 @@ import {
 } from "vue-router";
 import canvasRoutes from "./canvas";
 import countDownRoutes from "./countDown";
+import dragAndDropRoutes from "./dragAndDrop";
 
 export const routes = [
   {
@@ -13,7 +14,8 @@ export const routes = [
     component: () => import("@/views/main")
   },
   ...canvasRoutes,
-  ...countDownRoutes
+  ...countDownRoutes,
+  ...dragAndDropRoutes
 ];
 
 const isServer = typeof window === "undefined";
