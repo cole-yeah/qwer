@@ -1,6 +1,6 @@
 <template>
   <div>
-    <canvas></canvas>
+    <div>上传图片</div>
   </div>
 </template>
 <script>

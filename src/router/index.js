@@ -6,16 +6,19 @@ import {
 import canvasRoutes from "./canvas";
 import countDownRoutes from "./countDown";
 import dragAndDropRoutes from "./dragAndDrop";
+import listRoutes from "./list";
 
 export const routes = [
   {
     path: "/",
-    name: "Main",
+    name: "MainPage",
+    floor: 1,
     component: () => import("@/views/main")
   },
   ...canvasRoutes,
   ...countDownRoutes,
-  ...dragAndDropRoutes
+  ...dragAndDropRoutes,
+  ...listRoutes,
 ];
 
 const isServer = typeof window === "undefined";
