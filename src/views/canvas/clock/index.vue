@@ -5,18 +5,21 @@
   </div>
 </template>
 <script>
+import dayjs from "dayjs";
 export default {
   name: "Clock",
   data() {
     return {
-      clockCtx: null
+      clockCtx: null,
+      timer: null
     };
   },
   mounted() {
     this.initCtx();
-    this.drawCircle();
-    this.drawMinuteDial();
-    this.drawHourDial();
+    this.countDown();
+  },
+  unmounted() {
+    this.timer && clearTimeout(this.timer);
   },
   methods: {
     initCtx() {
@@ -38,25 +41,27 @@ export default {
       beginY = -170,
       endY = -190
     }) {
-      this.clockCtx.save(); //设置旋转环境
-      //设置时针的样式
+      this.clockCtx.save();
       this.clockCtx.lineWidth = width;
       this.clockCtx.strokeStyle = color;
 
-      this.clockCtx.translate(250, 250); //设置异次元空间的原点
-
-      this.clockCtx.rotate((deg * Math.PI) / 180); //设置旋转角度
-      this.clockCtx.beginPath(); //画笔开始
-      this.clockCtx.moveTo(0, beginY); //画线， 从坐标0，-170开始
-      this.clockCtx.lineTo(0, endY); //到坐标0，-190结束
-      this.clockCtx.stroke(); //绘图
+      this.clockCtx.translate(250, 250);
+      this.clockCtx.rotate((deg * Math.PI) / 180);
+      this.clockCtx.beginPath();
+      this.clockCtx.moveTo(0, beginY);
+      this.clockCtx.lineTo(0, endY);
+      this.clockCtx.stroke();
       this.clockCtx.closePath();
       this.clockCtx.restore();
     },
     drawText(index) {
-      this.clockCtx.font = "16px";
-      this.clockCtx.fillText(`${index}+1`, 0, -240);
-      this.clockCtx.fillStyle = "#999";
+      this.clockCtx.save();
+      this.clockCtx.translate(250, 250);
+      this.clockCtx.rotate(((index + 1) * 30 * Math.PI) / 180);
+      this.clockCtx.font = "18px Arial";
+      this.clockCtx.fillStyle = "#f8f8f8";
+      this.clockCtx.fillText(`${index + 1}`, -7, -150);
+      this.clockCtx.restore();
     },
     drawHourDial() {
       for (let i = 0; i < 12; i++) {
@@ -74,6 +79,59 @@ export default {
           endY: -190
         });
       }
+    },
+    drawCircleCenter() {
+      this.clockCtx.save();
+      this.clockCtx.beginPath();
+      this.clockCtx.lineWidth = 1;
+      this.clockCtx.strokeStyle = "#333";
+      this.clockCtx.arc(250, 250, 6, 0, 360, false);
+      this.clockCtx.stroke();
+      this.clockCtx.closePath();
+      this.clockCtx.fillStyle = "#333";
+      this.clockCtx.fill();
+      this.clockCtx.restore();
+    },
+    drawNeedle({ deg, width = 7, length = 100, color = "#999" }) {
+      this.clockCtx.save();
+      //时针样式
+      this.clockCtx.lineWidth = width;
+      this.clockCtx.strokeStyle = color;
+      this.clockCtx.translate(250, 250);
+      this.clockCtx.rotate((deg * Math.PI) / 180);
+      this.clockCtx.beginPath();
+      this.clockCtx.moveTo(0, -length);
+      this.clockCtx.lineTo(0, 10);
+      this.clockCtx.stroke();
+      this.clockCtx.closePath();
+      this.clockCtx.restore();
+    },
+    drawSecondNeedle(val) {
+      this.drawNeedle({ length: 160, color: "#333", width: 4, deg: val * 6 });
+    },
+    drawMinuteNeedle(val) {
+      this.drawNeedle({ length: 140, color: "#666", width: 5, deg: val * 6 });
+    },
+    drawHourNeedle(h, m) {
+      const deg = h * 30 + (m * 6) / 13;
+      this.drawNeedle({ length: 120, color: "#999", width: 6, deg });
+    },
+    countDown() {
+      this.clockCtx.clearRect(0, 0, 500, 500);
+      this.drawCircle();
+      this.drawMinuteDial();
+      this.drawHourDial();
+      const [h, m, s] = dayjs()
+        .format("HH:mm:ss")
+        .split(":")
+        .map(str => Number(str));
+      this.drawHourNeedle(h, m);
+      this.drawMinuteNeedle(m);
+      this.drawSecondNeedle(s);
+      this.drawCircleCenter();
+      this.timer = setTimeout(() => {
+        this.countDown();
+      }, 1000);
     }
   }
 };
