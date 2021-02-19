@@ -34,6 +34,12 @@ const routes = [
     name: "Clock",
     floor: 2,
     component: () => import("@/views/canvas/clock")
+  },
+  {
+    path: "/canvas/confetti",
+    name: "Confetti",
+    floor: 2,
+    component: () => import("@/views/canvas/confetti")
   }
 ];
 
