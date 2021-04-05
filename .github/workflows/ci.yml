@@ -28,4 +28,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Build project
-        run: npm i && npm run build:csr
+        uses: JamesIves/github-pages-deploy-action@master
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: build
+          BUILD_SCRIPT: npm install && npm run build:csr
