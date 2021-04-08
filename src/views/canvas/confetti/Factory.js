@@ -10,7 +10,8 @@ class Confetti {
     gravity = 3,
     velocity = 50,
     canvasWidth = 300,
-    canvasHeight = 300
+    canvasHeight = 300,
+    decay = 0.9,
   }) {
     this.ctx = ctx;
     this.color = color;
@@ -23,6 +24,7 @@ class Confetti {
     this.velocity = velocity;
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
+    this.decay = decay;
   }
   draw() {
     this.ctx.fillStyle = this.color;
@@ -35,6 +37,7 @@ class Confetti {
     this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight)
     this.x -= Math.cos(this.angle) * this.velocity;
     this.y += Math.sin(this.angle) * this.velocity + this.gravity;
+    this.velocity *= this.decay;
     this.draw();
   }
 }
