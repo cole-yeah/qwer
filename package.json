@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@vue/server-renderer": "^3.0.4",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.4",
     "express": "^4.17.1",

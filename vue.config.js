@@ -5,6 +5,15 @@ const webpack = require("webpack");
 exports.chainWebpack = webpackConfig => {
   const isSSR = process.env.RENDER_ENV === "server";
   if (!isSSR) {
+    webpackConfig.devServer
+      .port(8080)
+      .open(true)
+      .proxy({
+        "/eva": {
+          target: "http://192.168.13.93:30889",
+          changeOrigin: true
+        }
+      });
     // This is required for repl.it to play nicely with the Dev Server
     webpackConfig.devServer.disableHostCheck(true);
     webpackConfig
@@ -13,7 +22,6 @@ exports.chainWebpack = webpackConfig => {
       .add("./src/entry-client.js");
     return;
   }
-
   webpackConfig
     .entry("app")
     .clear()
