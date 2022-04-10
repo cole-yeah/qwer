@@ -30,7 +30,6 @@ jobs:
         run: |
           npm install
           npm run build:csr
-          cp .gitignore
 
       # Runs a single command using the runners shell
       - name: Deploy
