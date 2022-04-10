@@ -22,13 +22,18 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # actions/checkout@v2 获取源码
+      # actions/checkout@v3 获取源码
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: Install & Build
+        run: |
+          npm install
+          npm run build
 
       # Runs a single command using the runners shell
-      - name: Build project
-        uses: JamesIves/github-pages-deploy-action@master
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
