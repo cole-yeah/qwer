@@ -35,7 +35,7 @@ export default {
     const element = document.documentElement;
 
     window.addEventListener("scroll", () => {
-      console.log("xxxxxxxxxxxxxx", element.scrollTop);
+      // console.log("xxxxxxxxxxxxxx", element.scrollTop);
       throttle(() => this.caculate(element.scrollTop));
     });
   },
