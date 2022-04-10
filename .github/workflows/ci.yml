@@ -31,7 +31,7 @@ jobs:
           npm install
           npm run build:csr
           mkdir dist/qwer
-          cp -p -i dist/client dist/qwer
+          cp -r dist/client dist/qwer
           mv dist/qwer dist/client
 
       # Runs a single command using the runners shell
