@@ -30,13 +30,14 @@ jobs:
         run: |
           npm install
           npm run build:csr
+          cp .gitignore
 
       # Runs a single command using the runners shell
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: dist # The folder the action should deploy.
+          folder: dist/client # The folder the action should deploy.
         # env:
         #   ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         #   BASE_BRANCH: master
