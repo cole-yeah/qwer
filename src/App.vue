@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 20px" @click="download">down load</div>
+  <!-- <div style="padding: 20px" @click="download">down load</div> -->
   <router-view></router-view>
 </template>
 
