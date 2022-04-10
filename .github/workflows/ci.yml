@@ -30,6 +30,9 @@ jobs:
         run: |
           npm install
           npm run build:csr
+          mkdir dist/qwer
+          cp -p -i dist/client dist/qwer
+          mv dist/qwer dist/client
 
       # Runs a single command using the runners shell
       - name: Deploy
@@ -37,10 +40,8 @@ jobs:
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: dist/client # The folder the action should deploy.
-        # env:
-        #   ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        #   BASE_BRANCH: master
-        #   BRANCH: gh-pages
-        #   FOLDER: build
-        # BUILD_SCRIPT: npm install && npm run build:csr
-        # run: npm install && npm run build:csr
+
+      # fix source 404
+      # - name: File cp
+      #   run: |
+      #     cp dist/client qwer/
