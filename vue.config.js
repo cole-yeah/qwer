@@ -2,6 +2,13 @@ const ManifestPlugin = require("webpack-manifest-plugin");
 const nodeExternals = require("webpack-node-externals");
 const webpack = require("webpack");
 
+const isGithubPage = process.env.RENDER_ENV === "client-gp";
+
+// 基本配置
+module.exports = {
+  publicPath: isGithubPage ? "/qwer/" : "/"
+};
+
 exports.chainWebpack = webpackConfig => {
   const isSSR = process.env.RENDER_ENV === "server";
   if (!isSSR) {
