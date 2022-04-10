@@ -28,7 +28,7 @@ jobs:
 
       - name: Install & Build
         run: |
-          npm ci
+          npm install
           npm run build:csr
 
       # Runs a single command using the runners shell
