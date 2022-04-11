@@ -1,6 +1,6 @@
 const defaultEquals = (a, b) => {
-  return a === b
-}
+  return a === b;
+};
 
 export class Node {
   constructor(element) {
@@ -10,9 +10,7 @@ export class Node {
 }
 
 export default class LinkedList {
-  construct({
-    equalsFn = defaultEquals
-  }) {
+  construct({ equalsFn = defaultEquals }) {
     this.count = 0;
     this.head = undefined;
     this.equalsFn = equalsFn;
@@ -38,14 +36,14 @@ export default class LinkedList {
   insert() {}
   // 返回链表中特定位置的元素
   getElementAt(index) {
-    if(index >= 0 && index <= this.count) {
+    if (index >= 0 && index <= this.count) {
       let node = this.head;
-      for(let i = 0; i<index && node !== null; i++) {
-        node = node.text
+      for (let i = 0; i < index && node !== null; i++) {
+        node = node.text;
       }
       return node;
     }
-    return undefined
+    return undefined;
   }
   // 从链表中移除一个元素
   remove(element) {}

@@ -1,19 +1,19 @@
 class CustomSet {
   constructor() {
-    this.items = {}
+    this.items = {};
   }
   add(element) {
-    if(this.has(element)) return false
-    this.items[element] = element
-    return true
+    if (this.has(element)) return false;
+    this.items[element] = element;
+    return true;
   }
   delete(element) {
-    if(!this.has(element)) return false
-    delete this.items[element]
-    return true
+    if (!this.has(element)) return false;
+    delete this.items[element];
+    return true;
   }
   has(element) {
-    return Object.prototype.hasOwnProperty.call(this.items, element)
+    return Object.prototype.hasOwnProperty.call(this.items, element);
     /**
      * 等同于
      * this.itmes.hasOwnProperty(element)
@@ -26,12 +26,12 @@ class CustomSet {
      */
   }
   clear() {
-    this.items = {}
+    this.items = {};
   }
   size() {
-    return Object.keys(this.items).length
+    return Object.keys(this.items).length;
   }
   values() {
-    return Object.values(this.items)
+    return Object.values(this.items);
   }
 }

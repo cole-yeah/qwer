@@ -6,9 +6,17 @@ const isGithubPage = process.env.RENDER_ENV === "client-gp";
 
 // 基本配置
 module.exports = {
-  publicPath: isGithubPage ? "/qwer/" : "/"
+  publicPath: isGithubPage ? "/qwer/" : "/",
+  // webpack 的配置
+  configureWebpack: {
+    devServer: {
+      disableHostCheck: true
+    },
+    entry: "./src/entry-client.js"
+  }
 };
 
+// 下面的配置不会用到了，因为上面已经导出配置。下面是webpack的配置，所以之前改publicPath一直不生效
 exports.chainWebpack = webpackConfig => {
   const isSSR = process.env.RENDER_ENV === "server";
   if (!isSSR) {
@@ -27,6 +35,9 @@ exports.chainWebpack = webpackConfig => {
       .entry("app")
       .clear()
       .add("./src/entry-client.js");
+    // webpackConfig.as
+    // webpackConfig.output.publicPath = isGithubPage ? "/qwer/" : "/";
+    // webpackConfig.devServer.publicPath = isGithubPage ? "/qwer/" : "/";
     return;
   }
   webpackConfig

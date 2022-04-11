@@ -18,7 +18,7 @@ export const routes = [
   ...canvasRoutes,
   ...countDownRoutes,
   ...dragAndDropRoutes,
-  ...listRoutes,
+  ...listRoutes
 ];
 
 const isServer = typeof window === "undefined";

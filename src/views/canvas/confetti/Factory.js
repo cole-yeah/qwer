@@ -11,7 +11,7 @@ class Confetti {
     velocity = 50,
     canvasWidth = 300,
     canvasHeight = 300,
-    decay = 0.9,
+    decay = 0.9
   }) {
     this.ctx = ctx;
     this.color = color;
@@ -34,7 +34,7 @@ class Confetti {
   }
   move() {
     if (this.x <= 0 || this.y <= 0) return;
-    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight)
+    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     this.x -= Math.cos(this.angle) * this.velocity;
     this.y += Math.sin(this.angle) * this.velocity + this.gravity;
     this.velocity *= this.decay;
