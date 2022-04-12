@@ -1,5 +1,6 @@
 import {
   createRouter,
+  createWebHashHistory,
   createWebHistory,
   createMemoryHistory
 } from "vue-router";
@@ -23,7 +24,7 @@ export const routes = [
 
 const isServer = typeof window === "undefined";
 
-const createHistory = isServer ? createMemoryHistory : createWebHistory;
+const createHistory = isServer ? createMemoryHistory : createWebHashHistory;
 
 const _createRouter = () => {
   return createRouter({
