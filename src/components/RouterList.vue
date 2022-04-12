@@ -1,11 +1,13 @@
 <template>
-  <div v-for="(route, i) in list" :key="i">
-    <div
-      class="item"
-      @click="pushPage(route.path)"
-      v-if="route.floor === floor"
-    >
-      {{ route.name }}
+  <div class="list">
+    <div v-for="(route, i) in list" :key="i">
+      <div
+        class="item"
+        @click="pushPage(route.path)"
+        v-if="route.floor === floor"
+      >
+        {{ route.name }}
+      </div>
     </div>
   </div>
 </template>
@@ -30,13 +32,19 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.list {
+  display: flex;
+  justify-content: flex-start;
+}
 .item {
-  padding: 10px;
+  padding: 6px 12px;
   font-size: 14px;
   color: #333;
   font-weight: 600;
-  border-radius: 8px;
-  background-color: #fff;
+  border-radius: 4px;
+  background-color: #eee;
   margin-bottom: 10px;
+  margin-right: 12px;
+  cursor: pointer;
 }
 </style>

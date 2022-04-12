@@ -4,9 +4,9 @@
       <p class="motto">{{ mottoAry[mottoIndex] }}</p>
       <div class="btnBox">
         <div class="btn" @click="clickFunc">
-          {{ isPlaying ? "PAUSE" : "PLAY" }}
+          {{ isPlaying ? "暂停" : "开始" }}
         </div>
-        <div class="btn" @click="resetCount">RESET</div>
+        <div class="btn" @click="resetCount">重置</div>
       </div>
     </section>
   </footer>
