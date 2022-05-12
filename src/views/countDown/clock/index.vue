@@ -5,7 +5,11 @@
   </div>
 </template>
 <script>
+import { computed, ref, useTransitionState } from "vue";
 export default {
-  mounted() {}
+  setup() {
+    const count = ref();
+    const name = computed({});
+  }
 };
 </script>
