@@ -30,8 +30,6 @@ export default {
             ? decodeURI(encodeFileName)
             : "20210410";
 
-          console.log(res, "数据数据cat aios-platform-web/build.data ");
-
           link.setAttribute("download", `${curFileName}.xlsx`);
           document.body.appendChild(link);
           link.click();
